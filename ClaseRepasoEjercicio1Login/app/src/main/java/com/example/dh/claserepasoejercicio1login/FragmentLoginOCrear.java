@@ -17,8 +17,7 @@ public class FragmentLoginOCrear extends Fragment {
     private NotificarAActivities notificador;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_fragment_login_ocrear, container, false);
         Button buttonCrear = view.findViewById(R.id.fragment_loginocrear_button_crear);
         Button buttonLogin = view.findViewById(R.id.fragment_loginocrear_button_login);

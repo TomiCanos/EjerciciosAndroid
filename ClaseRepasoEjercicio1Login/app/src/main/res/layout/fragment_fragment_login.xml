@@ -16,14 +16,15 @@
         android:id="@+id/fragment_login_txtedit_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="password" />
+        android:hint="password"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/fragment_login_button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="crear" />
+        android:text="login" />
 
 
 </LinearLayout>

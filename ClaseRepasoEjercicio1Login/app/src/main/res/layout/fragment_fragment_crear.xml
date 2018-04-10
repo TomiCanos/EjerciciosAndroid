@@ -16,13 +16,15 @@
         android:id="@+id/fragment_crear_txtedit_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="password" />
+        android:hint="password"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/fragment_crear_txtedit_repetir_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="repetir password" />
+        android:hint="repetir password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/fragment_crear_button_crear"
