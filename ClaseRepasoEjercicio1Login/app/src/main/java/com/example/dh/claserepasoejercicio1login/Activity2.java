@@ -20,6 +20,5 @@ public class Activity2 extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.activity2_container, fragmentWelcome);
         transaction.commit();
-
     }
 }
