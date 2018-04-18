@@ -1,6 +1,7 @@
 package com.example.dh.recyclerejercicio2;
 
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -30,14 +31,14 @@ public class FragmentListaObjetos extends Fragment implements Adapter.Notificabl
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_fragment_objetos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
-        Adapter adapter = new Adapter(productos, this);
+        final Adapter adapter = new Adapter(productos, this);
         recyclerView.setAdapter(adapter);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fbutton_agregar_producto);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cargarProductos("ropero", "$5500", R.drawable.ropero);
-
+                adapter.notifyDataSetChanged();
             }
         });
         return view;
