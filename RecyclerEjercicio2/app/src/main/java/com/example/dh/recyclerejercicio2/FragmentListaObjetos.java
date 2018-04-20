@@ -26,7 +26,7 @@ public class FragmentListaObjetos extends Fragment implements Adapter.Notificabl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         productos = new ArrayList<>();
-        for (int i = 0; i<10; i++){cargarProductos("moto cruda", "$15600", R.drawable.moto);}
+        for (int i = 0; i<8; i++){cargarProductos("moto cruda", "$15600", R.drawable.moto);}
         View view = inflater.inflate(R.layout.fragment_fragment_lista_objetos, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_fragment_objetos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -41,6 +41,9 @@ public class FragmentListaObjetos extends Fragment implements Adapter.Notificabl
                 adapter.notifyDataSetChanged();
             }
         });
+        Adapter adapter = new Adapter(productos, this);
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
