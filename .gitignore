@@ -1,0 +1,10 @@
+
+*.bin
+
+*.properties
+
+*.rawproto
+
+*.json
+
+*.lock
