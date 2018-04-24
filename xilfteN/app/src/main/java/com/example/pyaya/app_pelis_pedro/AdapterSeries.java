@@ -57,7 +57,7 @@ public class AdapterSeries extends RecyclerView.Adapter  {
                 @Override
                 public void onClick(View v) {
                     Serie serie = listaDeSeries.get(getAdapterPosition());
-                    notificable.abrirDetalleContactoClickeado(serie);
+                    notificable.abrirDetalleContactoClickeado(listaDeSeries);
                 }
             });
 
@@ -70,7 +70,7 @@ public class AdapterSeries extends RecyclerView.Adapter  {
     }
 
     public interface Notificable{
-        void abrirDetalleContactoClickeado(Serie serie);
+        void abrirDetalleContactoClickeado(List lista);
     }
 
 }

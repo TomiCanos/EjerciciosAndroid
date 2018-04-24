@@ -88,19 +88,18 @@ public class FragmentHome extends Fragment implements AdapterSeries.Notificable 
     }
 
     @Override
-    public void abrirDetalleContactoClickeado(Serie serie) {
-        notificable2.abrirDetalleContactoClickeado2(serie);
-    }
-
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         notificable2 = (Notificable2) getActivity();
     }
 
+    @Override
+    public void abrirDetalleContactoClickeado(List lista) {
+        notificable2.abrirDetalleContactoClickeado2(lista);
+    }
+
     public interface Notificable2 {
-        void abrirDetalleContactoClickeado2(Serie serie);
+        void abrirDetalleContactoClickeado2(List listadeSeries);
     }
 
 }
