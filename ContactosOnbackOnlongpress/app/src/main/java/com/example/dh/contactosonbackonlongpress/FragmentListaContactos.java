@@ -14,7 +14,8 @@ import android.view.ViewGroup;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentListaContactos extends Fragment {
-    private RecibidorAgregar recibidorAgregar;
+    private RecibidorAgregar
+            recibidorAgregar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_lista_contactos, container, false);
