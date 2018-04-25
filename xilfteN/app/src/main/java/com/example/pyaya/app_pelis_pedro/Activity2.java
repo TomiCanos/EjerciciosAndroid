@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Activity2 extends AppCompatActivity {
+public class Activity2 extends AppCompatActivity implements FragmentDetalle.RecibirSerieDesdeElDetalle {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,11 @@ public class Activity2 extends AppCompatActivity {
 
         fragmentTransaction.commit();
         
+
+    }
+
+    @Override
+    public void recibirSerieDesdeElDetalle(Serie serie) {
 
     }
 
