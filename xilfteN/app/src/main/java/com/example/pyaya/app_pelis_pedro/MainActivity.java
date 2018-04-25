@@ -12,9 +12,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.io.Serializable;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements FragmentHome.Notificable2 {
 
     NavigationView navigationView;
@@ -58,15 +55,17 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
     }
 
     @Override
-    public void abrirDetalleContactoClickeado2(List listadeSeries) {
-        Intent intent = new Intent(MainActivity.this, ActivityViewPagerDetalle.class);
+    public void abrirDetalleContactoClickeado2(Serie serie) {
+        Intent intent = new Intent(MainActivity.this, Activity2.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable(ActivityViewPagerDetalle.CLAVE_LISTA_SERIES, (Serializable) listadeSeries);
+        bundle.putSerializable(FragmentDetalle.CLAVE_SERIE_DETALLE, serie);
         intent.putExtras(bundle);
 
         startActivity(intent);
     }
+
+
 
     private void cargadorDeFragments(Fragment unFragment) {
        /* android.app.FragmentManager fragmentManager = getFragmentManager();
@@ -74,6 +73,4 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
         fragmentTransaction.replace(R.id.aca_va_el_fragment,unFragment);
         fragmentTransaction.commit();*/
     }
-
-
 }
