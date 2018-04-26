@@ -5,57 +5,57 @@ package com.example.dh.mvc.Model;
  */
 
 public class Noticia{
-    private String titulo;
-    private String fecha;
-    private String descripcion;
-    private String autor;
+    private String title;
+    private String date;
+    private String description;
+    private String author;
 
     @Override
     public String toString() {
         return "Noticia{" +
-                "titulo='" + titulo + '\'' +
-                ", fecha='" + fecha + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", autor='" + autor + '\'' +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", author='" + author + '\'' +
                 '}';
     }
 
     public Noticia(String titulo, String fecha, String descripcion, String autor) {
-        this.titulo = titulo;
-        this.fecha = fecha;
-        this.descripcion = descripcion;
-        this.autor = autor;
+        this.title = titulo;
+        this.date = fecha;
+        this.description = descripcion;
+        this.author = autor;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getDate() {
+        return date;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.dh.mvc.Controller.DAO;
 
+import android.content.Context;
+
 import com.example.dh.mvc.Model.Noticia;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 
 public class DAOInternet {
 
-    public List<Noticia> obtenerListaDeNoticiasDeInternet(){
+    public List<Noticia> obtenerListaDeNoticiasDeInternet(Context context){
         List<Noticia> lista = new ArrayList<>();
         Noticia noticia = new Noticia("hola", "10-10-2019", "que tal", "yo");
         lista.add(noticia);

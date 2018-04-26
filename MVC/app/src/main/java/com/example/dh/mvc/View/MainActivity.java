@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.example.dh.mvc.Controller.ControllerNoticias;
 import com.example.dh.mvc.R;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button botonMostrarNoticia;
@@ -23,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ControllerNoticias controllerNoticias = new ControllerNoticias();
-                Toast.makeText(MainActivity.this, controllerNoticias.recibirNoticias().toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(MainActivity.this, controllerNoticias.recibirNoticias(MainActivity.this).toString(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
