@@ -52,6 +52,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListaRece
 
     @Override
     public void abrirDetalleReceta2(Receta receta) {
+        FragmentDetalleRecetas fragmentDetalleRecetas = new FragmentDetalleRecetas();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(fragmentDetalleRecetas.CLAVE_RECETA, receta );
+        fragmentDetalleRecetas.setArguments(bundle);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.container_main_activity, fragmentDetalleRecetas);
+        transaction.commit();
 
     }
 }
