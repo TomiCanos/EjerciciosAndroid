@@ -1,6 +1,7 @@
 package com.example.oem.entregableandroidcore;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.os.Build;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements FragmentListaRecetas.Notificable2 {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +34,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListaRece
 
                 switch (item.getItemId()){
                     case R.id.navigationItemRecetas:
+                        if (i == 0){
                         FragmentListaRecetas fragmentRecetas = new FragmentListaRecetas();
-
-                        FragmentManager manager = getSupportFragmentManager();
-                        FragmentTransaction transaction = manager.beginTransaction();
-                        transaction.add(R.id.container_main_activity, fragmentRecetas);
-                        transaction.commit();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.container_main_activity, fragmentRecetas).addToBackStack(null);
+                        i++;
+                        transaction.commit();}else{i = 0;}
                         break;
 
                     case R.id.navigationItemAboutUs:
@@ -56,10 +57,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListaRece
         Bundle bundle = new Bundle();
         bundle.putSerializable(fragmentDetalleRecetas.CLAVE_RECETA, receta );
         fragmentDetalleRecetas.setArguments(bundle);
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.container_main_activity, fragmentDetalleRecetas);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().replace(R.id.container_main_activity, fragmentDetalleRecetas).addToBackStack(null);
         transaction.commit();
-
     }
 }

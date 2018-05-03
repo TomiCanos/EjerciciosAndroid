@@ -44,7 +44,6 @@ public class FragmentListaRecetas extends Fragment implements AdapterRecetas.Not
 
     @Override
     public void abrirDetalleReceta(Receta receta) {
-        Toast.makeText(this.getContext(), "hola", Toast.LENGTH_SHORT).show();
         notificable2.abrirDetalleReceta2(receta);
     }
 
