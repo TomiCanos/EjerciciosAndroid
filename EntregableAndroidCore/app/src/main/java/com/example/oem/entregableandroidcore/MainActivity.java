@@ -19,7 +19,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements FragmentListaRecetas.Notificable2 {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +33,17 @@ public class MainActivity extends AppCompatActivity implements FragmentListaRece
 
                 switch (item.getItemId()){
                     case R.id.navigationItemRecetas:
-                        if (i == 0){
                         FragmentListaRecetas fragmentRecetas = new FragmentListaRecetas();
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.container_main_activity, fragmentRecetas).addToBackStack(null);
-                        i++;
-                        transaction.commit();}else{i = 0;}
+                        transaction.commit();
+
                         break;
 
                     case R.id.navigationItemAboutUs:
-                        Toast.makeText(MainActivity.this, "Abrir AboutUs", Toast.LENGTH_SHORT).show();
+                        FragmentAboutUs fragmentAboutUs = new FragmentAboutUs();
+                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction().add(R.id.container_main_activity, fragmentAboutUs).addToBackStack(null);
+                        transaction2.commit();
+
                 }
                 drawerLayout.closeDrawers();
                 return true;
