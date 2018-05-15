@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/Negro"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <FrameLayout
         android:id="@+id/contenedor_fragment_home"
@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:headerLayout="@layout/header_navigationview"
         app:menu="@menu/menu_navigationview">
 
     </android.support.design.widget.NavigationView>
