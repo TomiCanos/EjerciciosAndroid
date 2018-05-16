@@ -1,5 +1,6 @@
 package com.trabajo_integrador.xilften.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -8,9 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.trabajo_integrador.xilften.controller.PeliculaController;
 import com.trabajo_integrador.xilften.model.Pelicula;
@@ -26,11 +31,21 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setLogo(R.drawable.xilften);
+
+
 
         final FragmentHome fragmentHome = new FragmentHome();
 
@@ -101,6 +116,36 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_id:
+                Toast.makeText(this, "SEARCH", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.home_id:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.fav_id:
+                // Intent intent = new Intent(this, ActivityFavourites.class);
+                // startActivity(intent);
+                return true;
+            case android.R.id.home:
+                //listener personalizado para la flechita de ir hacia atras
+                onBackPressed();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void cargadorDeGenero(Integer unGenero) {

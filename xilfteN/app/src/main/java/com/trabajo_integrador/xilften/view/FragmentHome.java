@@ -15,10 +15,13 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.trabajo_integrador.xilften.controller.PeliculaController;
+import com.trabajo_integrador.xilften.controller.SerieController;
 import com.trabajo_integrador.xilften.model.Pelicula;
 import com.trabajo_integrador.xilften.R;
+import com.trabajo_integrador.xilften.model.Serie.Serie;
 import com.trabajo_integrador.xilften.utils.ResultListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -28,36 +31,39 @@ public class FragmentHome extends Fragment {
 
     private static final String ID_PELICULACARROUSEL = "ID_PELICULACARROUSEL";
 
-    RecyclerView recyclerView;
-    private RecyclerView recyclerViewNationals;
-    private AdapterTMDB adapterTreinding;
-    private AdapterTMDB adapterSerie;
-    private AdapterTMDB adapterReleases;
-    private AdapterTMDB adapterNational;
-    private AdapterTMDB adapterComedy;
-    private AdapterTMDB adapterBecauseYouWatched;
-    private Notificable notificable;
+    private List<Serie> LISTASERIESRESULTADOPRUEBA;
     private List<Pelicula> listaTrendingResultado;
     private List<Pelicula> listaSeriesResultado;
     private List<Pelicula> listaReleasesResultado;
     private List<Pelicula> listaNationalResultado;
     private List<Pelicula> listaComedyResultado;
+    private List<Serie> LISTASERIEPRUEBA;
     private List<Pelicula> listaTrending;
     private List<Pelicula> listaSeries;
     private List<Pelicula> listaReleases;
     private List<Pelicula> listaNational;
     private List<Pelicula> listaComedy;
+    private AdapterTMDBSerie ADAPTERSERIEPRUEBA;
+    private AdapterTMDB adapterTreinding;
+    private AdapterTMDB adapterSerie;
+    private AdapterTMDB adapterReleases;
+    private AdapterTMDB adapterNational;
+    private AdapterTMDB adapterComedy;
     private ViewPager viewPager;
-    private Pelicula pelicula;
+    private AdapterTMDBSerie.ReceptorSerie receptorSerie;
+    private Notificable notificable;
+    private RecyclerView recyclerView;
 
 
     public FragmentHome() {
 
+        LISTASERIESRESULTADOPRUEBA = new ArrayList<>();
         listaTrendingResultado = new ArrayList<>();
         listaSeriesResultado = new ArrayList<>();
         listaReleasesResultado = new ArrayList<>();
         listaNationalResultado = new ArrayList<>();
         listaComedyResultado = new ArrayList<>();
+        LISTASERIEPRUEBA = new ArrayList<>();
         listaTrending = new ArrayList<>();
         listaSeries = new ArrayList<>();
         listaReleases = new ArrayList<>();
@@ -70,17 +76,9 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         viewPager = view.findViewById(R.id.viewPagerCarrousel);
 
-
-       /* AdapterCarrousel adapterCarrousel = new AdapterCarrousel(getActivity());
-        viewPager.setAdapter(adapterCarrousel);*/
-
         crearTrendingLista();
-
-
-
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new miTimer(), 9000, 8000);
@@ -97,10 +95,21 @@ public class FragmentHome extends Fragment {
         });
 
         recyclerView.setAdapter(adapterTreinding);
+        /////////////////////////////////////////////////
 
-        //Recycler & AdapterPelicula para Trending Now. @Dani
+        RecyclerView recyclerViewSerie = view.findViewById(R.id.fragment_home_recycler_series);
+        recyclerViewSerie.setHasFixedSize(true);
+        recyclerViewSerie.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        RecyclerView recyclerViewTrending = view.findViewById(R.id.fragment_home_recycler_series);
+        ADAPTERSERIEPRUEBA = new AdapterTMDBSerie(CREARLISTASERIEPRUEBA(), new AdapterTMDBSerie.ReceptorSerie() {
+            @Override
+            public void abrirDetalleSerieClickeado(List<Serie> listaPelicula, Integer positionPelicula) {
+                receptorSerie.abrirDetalleSerieClickeado(listaPelicula, positionPelicula);
+            }
+        });
+
+        recyclerViewSerie.setAdapter(adapterSerie);
+        /*RecyclerView recyclerViewTrending = view.findViewById(R.id.fragment_home_recycler_series);
         recyclerViewTrending.setHasFixedSize(true);
         recyclerViewTrending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -111,8 +120,8 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        recyclerViewTrending.setAdapter(adapterSerie);
-        //////////
+        recyclerViewTrending.setAdapter(adapterSerie);*/
+        /////////////////////////////////////////////////
 
         RecyclerView recyclerViewReleases = view.findViewById(R.id.fragment_home_recycler_releases);
         recyclerViewReleases.setHasFixedSize(true);
@@ -126,9 +135,9 @@ public class FragmentHome extends Fragment {
         });
 
         recyclerViewReleases.setAdapter(adapterReleases);
-        /////////////////////////
+        /////////////////////////////////////////////////
 
-        recyclerViewNationals = view.findViewById(R.id.fragment_home_recycler_national);
+        RecyclerView recyclerViewNationals = view.findViewById(R.id.fragment_home_recycler_national);
         recyclerViewNationals.setHasFixedSize(true);
         recyclerViewNationals.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -140,7 +149,7 @@ public class FragmentHome extends Fragment {
         });
 
         recyclerViewNationals.setAdapter(adapterNational);
-        /////////////
+        /////////////////////////////////////////////////
 
         RecyclerView recyclerViewComedies = view.findViewById(R.id.fragment_home_recycler_comedy);
         recyclerViewComedies.setHasFixedSize(true);
@@ -154,25 +163,31 @@ public class FragmentHome extends Fragment {
         });
 
         recyclerViewComedies.setAdapter(adapterComedy);
-        ///////////////
 
-       /* RecyclerView recyclerViewBecause = view.findViewById(R.id.fragment_home_recycler_saw);
-        recyclerViewBecause.setHasFixedSize(true);
-        recyclerViewBecause.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        adapterBecauseYouWatched = new AdapterTMDB(crearListaBecauseYouWatched(), new AdapterTMDB.Notificable() {
-            @Override
-            public void abrirDetalleContactoClickeado(List<Pelicula> listaPelicula, Integer positionPelicula) {
-                notificable.abrirDetalleContactoClickeado(listaPelicula, positionPelicula);
-            }
-        });
-
-        recyclerViewBecause.setAdapter(adapterBecauseYouWatched);*/
 
         return view;
     }
 
-    //Agrego la lista de pelis a mostrar en la seccion Trending Now. @Dani
+    private List<Serie> CREARLISTASERIEPRUEBA() {
+        if (LISTASERIEPRUEBA.size() == 0) {
+            SerieController serieController = new SerieController();
+
+            serieController.obtenerSeries(new ResultListener<List<Serie>>() {
+                @Override
+                public void finish(List<Serie> resultado) {
+                    LISTASERIESRESULTADOPRUEBA = resultado;
+
+                    for (int i = 0; i < LISTASERIESRESULTADOPRUEBA.size(); i++) {
+                        LISTASERIEPRUEBA.add(crearObjetoSerie(LISTASERIESRESULTADOPRUEBA.get(i)));
+                    }
+                    adapterSerie.notifyDataSetChanged();
+                }
+            });
+
+        }
+        return LISTASERIEPRUEBA;
+    }
+
     private List<Pelicula> crearTrendingLista() {
 
         if (listaTrending.size() == 0) {
@@ -300,18 +315,6 @@ public class FragmentHome extends Fragment {
         return listaComedy;
     }
 
-   /* private List<Pelicula> crearListaBecauseYouWatched() {
-
-        List<Pelicula> lista = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            lista.add(new Pelicula("Proyecto Rampage", getString(R.string.description_ipsum), "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"));
-            lista.add(new Pelicula("Suicide Squad 2", getString(R.string.description_ipsum), "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"));
-            lista.add(new Pelicula("The Party", getString(R.string.description_ipsum), "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"));
-            lista.add(new Pelicula("Tomb Raider", getString(R.string.description_ipsum), "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"));
-            lista.add(new Pelicula("Verdad o Reto", getString(R.string.description_ipsum), "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"));
-        }
-        return lista;
-    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -326,6 +329,12 @@ public class FragmentHome extends Fragment {
     public Pelicula crearObjetoPelicula(Pelicula unPelicula) {
 
         return new Pelicula(unPelicula.getTitle(), unPelicula.getOverview(), unPelicula.getPoster_path(), unPelicula.getBackdrop_path());
+
+    }
+
+    public Serie crearObjetoSerie(Serie unSerie) {
+
+        return new Serie(unSerie.getOriginal_name(), unSerie.getOverview(), unSerie.getPoster_path(), unSerie.getBackdrop_path(), unSerie.getNumber_of_episodes(), unSerie.getNumber_of_seasons(), unSerie.getSeasons());
 
     }
 
@@ -359,11 +368,5 @@ public class FragmentHome extends Fragment {
 
         }
     }
-
-
-
-
-
-
 
 }
