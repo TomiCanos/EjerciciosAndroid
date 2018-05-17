@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.trabajo_integrador.xilften.controller.PeliculaController;
 import com.trabajo_integrador.xilften.model.Pelicula;
 import com.trabajo_integrador.xilften.R;
+import com.trabajo_integrador.xilften.model.Serie.Serie;
 import com.trabajo_integrador.xilften.utils.ResultListener;
 
 import java.io.Serializable;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements FragmentHome.Notificable, FragmentGenero.NotificableGenero {
+public class MainActivity extends AppCompatActivity implements FragmentHome.Notificable, FragmentGenero.NotificableGenero, FragmentHome.ReceptorSerie {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -170,7 +171,16 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
         startActivity(intent);
 
     }
-    
+
+    @Override
+    public void abrirDetalleSerieClickeado(List<Serie> series, Integer positionSerie) {
+        Intent intent = new Intent(MainActivity.this, DetalleActivitySerie.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DetalleActivitySerie.CLAVE_SERIE, (Serializable) series);
+        bundle.putInt(DetalleActivitySerie.ID_POSITION, positionSerie);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     @Override
     public void onBackPressed() {
 
@@ -191,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Noti
             super.onBackPressed();
         }
     }
-
 
 
 

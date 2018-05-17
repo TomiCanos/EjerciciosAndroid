@@ -2,6 +2,7 @@ package com.trabajo_integrador.xilften.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -50,7 +51,7 @@ public class FragmentHome extends Fragment {
     private AdapterTMDB adapterNational;
     private AdapterTMDB adapterComedy;
     private ViewPager viewPager;
-    private AdapterTMDBSerie.ReceptorSerie receptorSerie;
+    private ReceptorSerie receptorSerie;
     private Notificable notificable;
     private RecyclerView recyclerView;
 
@@ -108,7 +109,7 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        recyclerViewSerie.setAdapter(adapterSerie);
+        recyclerViewSerie.setAdapter(ADAPTERSERIEPRUEBA);
         /*RecyclerView recyclerViewTrending = view.findViewById(R.id.fragment_home_recycler_series);
         recyclerViewTrending.setHasFixedSize(true);
         recyclerViewTrending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -180,7 +181,7 @@ public class FragmentHome extends Fragment {
                     for (int i = 0; i < LISTASERIESRESULTADOPRUEBA.size(); i++) {
                         LISTASERIEPRUEBA.add(crearObjetoSerie(LISTASERIESRESULTADOPRUEBA.get(i)));
                     }
-                    adapterSerie.notifyDataSetChanged();
+                    ADAPTERSERIEPRUEBA.notifyDataSetChanged();
                 }
             });
 
@@ -320,6 +321,11 @@ public class FragmentHome extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         notificable = (Notificable) getActivity();
+        receptorSerie = (ReceptorSerie) getActivity();
+    }
+
+    public interface ReceptorSerie {
+        void abrirDetalleSerieClickeado(List<Serie> series, Integer positionSerie);
     }
 
     public interface Notificable {

@@ -44,7 +44,6 @@ public class AdapterTMDB extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Pelicula pelicula = listaDePeliculas.get(position);
         TMDBViewHolder serieViewHolder = (TMDBViewHolder) holder;
-        pelicula.setEstaEnFavoritos(true);
         serieViewHolder.cargarSerie(pelicula);
     }
 
