@@ -40,6 +40,25 @@
                 android:textColor="@color/Blanco"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/textViewCantidadSeasonsDetalleSerie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/Gris"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/textViewCantidadEpisodesDetalleSerie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/Gris"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
         <FrameLayout

@@ -21,6 +21,8 @@ import com.trabajo_integrador.xilften.model.Serie.Serie;
 public class FragmentDetalleSerie extends Fragment {
     private static final String ID_SERIE = "ID_SERIE";
 
+    private TextView cantidadSeasons;
+    private TextView cantidadEpisodes;
     private ImageView imagenDetalle;
     private TextView nombreDetalle;
     private TextView descripcionDetalle;
@@ -39,6 +41,8 @@ public class FragmentDetalleSerie extends Fragment {
         descripcionDetalle = view.findViewById(R.id.textViewDescripcionFragmentDetalleSerie);
         imagenDetalle = view.findViewById(R.id.imagenFragmentDetalle_Serie);
         botonFavoritoFragmentDetalle = view.findViewById(R.id.imageButtonFavoritoFragmentDetalle_Serie);
+        cantidadEpisodes = view.findViewById(R.id.textViewCantidadEpisodesDetalleSerie);
+        cantidadSeasons = view.findViewById(R.id.textViewCantidadSeasonsDetalleSerie);
 
 
         Bundle bundle = getArguments();
@@ -48,6 +52,8 @@ public class FragmentDetalleSerie extends Fragment {
         if (serie.getEstaEnFavoritos()){botonFavoritoFragmentDetalle.setImageResource(R.drawable.corazonfavoritoclickeado);}
         nombreDetalle.setText(serie.getOriginal_name());
         descripcionDetalle.setText(serie.getOverview());
+        cantidadSeasons.setText("Seasons: " + serie.getNumber_of_seasons().toString());
+        cantidadEpisodes.setText("Total episodes: " + serie.getNumber_of_episodes().toString());
 
         if (serie.getBackdrop_path() !=null){
             Picasso.get().load("https://image.tmdb.org/t/p/w780" + serie.getBackdrop_path()).into(imagenDetalle);

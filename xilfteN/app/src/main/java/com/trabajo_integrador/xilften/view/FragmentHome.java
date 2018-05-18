@@ -340,7 +340,7 @@ public class FragmentHome extends Fragment {
 
     public Serie crearObjetoSerie(Serie unSerie) {
 
-        return new Serie(unSerie.getOriginal_name(), unSerie.getOverview(), unSerie.getPoster_path(), unSerie.getBackdrop_path(), unSerie.getNumber_of_episodes(), unSerie.getNumber_of_seasons(), unSerie.getSeasons());
+        return new Serie(unSerie.getOriginal_name(), unSerie.getOverview(), unSerie.getPoster_path(), unSerie.getBackdrop_path()/*, unSerie.getNumber_of_episodes(), unSerie.getNumber_of_seasons(), unSerie.getSeasons()*/);
 
     }
 

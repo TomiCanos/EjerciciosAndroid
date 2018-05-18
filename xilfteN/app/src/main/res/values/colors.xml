@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="Blanco">#FFFFFF</color>
     <color name="Negro">#000000</color>
-    <color name="Gris">#46000000</color>
+    <color name="GrisTransparente">#46000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="Gris">#867f7f</color>
 </resources>

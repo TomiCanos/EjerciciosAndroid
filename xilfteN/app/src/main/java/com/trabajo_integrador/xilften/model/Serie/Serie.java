@@ -19,14 +19,16 @@ public class Serie implements Serializable{
     private Integer number_of_seasons;
     private List<Season> seasons;
 
-    public Serie(String original_name, String overview, String poster_path, String backdrop_path, Integer number_of_episodes, Integer number_of_seasons, List<Season> seasons) {
+    public Serie(String original_name, String overview, String poster_path, String backdrop_path/*, Integer number_of_episodes, Integer number_of_seasons, List<Season> seasons*/) {
 
         this.original_name = original_name;
         this.overview = overview;
         this.poster_path = poster_path;
         this.backdrop_path = backdrop_path;
-        this.number_of_episodes = number_of_episodes;
-        this.number_of_seasons = number_of_seasons;
+        /*this.number_of_episodes = number_of_episodes;
+        this.number_of_seasons = number_of_seasons;*/
+        this.number_of_episodes = 5;
+        this.number_of_seasons = 10;
         this.seasons = seasons;
         estaEnFavoritos = false;
     }
